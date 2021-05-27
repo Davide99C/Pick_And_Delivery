@@ -1,0 +1,28 @@
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target _move_robot_generate_messages_check_deps_NewGoal
+[ 11%] Built target move_robot_generate_messages_lisp
+[ 22%] Built target move_robot_generate_messages_cpp
+[ 44%] Built target move_robot_generate_messages_py
+[ 55%] Built target move_robot_generate_messages_nodejs
+[ 77%] Built target move_robot_generate_messages_eus
+[ 88%] [32m[1mLinking CXX executable /home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/lib/move_robot/move[0m
+[ 88%] Built target move_robot_generate_messages
+CMakeFiles/move.dir/src/move.cpp.o: In function `main':
+move.cpp:(.text+0xc73): undefined reference to `tf2_ros::TransformListener::TransformListener(tf2::BufferCore&, bool)'
+move.cpp:(.text+0x11a1): undefined reference to `tf2_ros::TransformListener::~TransformListener()'
+CMakeFiles/move.dir/src/move.cpp.o: In function `__static_initialization_and_destruction_0(int, int)':
+move.cpp:(.text+0x14cf): undefined reference to `tf2_ros::Buffer::Buffer(ros::Duration, bool)'
+CMakeFiles/move.dir/src/move.cpp.o: In function `tf2_ros::Buffer::~Buffer()':
+move.cpp:(.text._ZN7tf2_ros6BufferD2Ev[_ZN7tf2_ros6BufferD5Ev]+0xf): undefined reference to `vtable for tf2_ros::Buffer'
+move.cpp:(.text._ZN7tf2_ros6BufferD2Ev[_ZN7tf2_ros6BufferD5Ev]+0x1d): undefined reference to `vtable for tf2_ros::Buffer'
+collect2: error: ld returned 1 exit status
+CMakeFiles/move.dir/build.make:113: recipe for target '/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/lib/move_robot/move' failed
+make[2]: *** [/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/lib/move_robot/move] Error 1
+CMakeFiles/Makefile2:67: recipe for target 'CMakeFiles/move.dir/all' failed
+make[1]: *** [CMakeFiles/move.dir/all] Error 2
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2

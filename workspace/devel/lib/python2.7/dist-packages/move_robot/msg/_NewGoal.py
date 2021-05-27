@@ -1,0 +1,1 @@
+/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/lib/python2.7/dist-packages/move_robot/msg/_NewGoal.py

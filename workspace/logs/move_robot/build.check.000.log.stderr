@@ -1,0 +1,5 @@
+[31m[1mCMake Error[0m at /home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/CMakeLists.txt:50 (add_message_files):
+  Unknown CMake command "add_message_files".
+
+
+make: *** [cmake_check_build_system] Error 1

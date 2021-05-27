@@ -1,0 +1,8 @@
+prefix=/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/install
+
+Name: catkin_tools_prebuild
+Description: Description of catkin_tools_prebuild
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

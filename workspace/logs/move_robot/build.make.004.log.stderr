@@ -1,0 +1,56 @@
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:[m[K In function ‘[01m[Kvoid position_CallBack(const TFMessage&)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:61:28:[m[K [01;31m[Kerror: [m[K‘[01m[Kclass tf2_ros::Buffer[m[K’ has no member named ‘[01m[KcanTrasform[m[K’; did you mean ‘[01m[KcanTransform[m[K’?
+     trasform_ok = tfBuffer.[01;31m[KcanTrasform[m[K("map", "base_link", ros::Time(0));
+                            [01;31m[K^~~~~~~~~~~[m[K
+                            [32m[KcanTransform[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:[m[K At global scope:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:74:33:[m[K [01;31m[Kerror: [m[K‘[01m[KTimeEvent[m[K’ in namespace ‘[01m[Kros[m[K’ does not name a type
+ void check1_callBack(const ros::[01;31m[KTimeEvent[m[K& event){
+                                 [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:94:33:[m[K [01;31m[Kerror: [m[K‘[01m[KTimeEvent[m[K’ in namespace ‘[01m[Kros[m[K’ does not name a type
+ void check2_callBack(const ros::[01;31m[KTimeEvent[m[K& event){
+                                 [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:[m[K In function ‘[01m[Kvoid check2_callBack(const int&)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:97:114:[m[K [01;31m[Kerror: [m[Koverloaded function with no contextual type information
+         distance=sqrt(pow(current_position[0]-target_position[0],2)+pow(current_position[1]-target_position[1],2)[01;31m[K)[m[K;
+                                                                                                                  [01;31m[K^[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:98:21:[m[K [01;31m[Kerror: [m[Kinvalid operands of types ‘[01m[K<unresolved overloaded function type>[m[K’ and ‘[01m[Kdouble[m[K’ to binary ‘[01m[Koperator>[m[K’
+         if([01;31m[Kdistance > 0.5[m[K){
+            [01;31m[K~~~~~~~~~^~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:110:74:[m[K [01;31m[Kerror: [m[Kconversion from ‘[01m[Kros::Publisher[m[K’ to non-scalar type ‘[01m[Kros::Subscriber[m[K’ requested
+     ros::Subscriber chatter_pub = [01;31m[Kn.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal",1000)[m[K;
+                                   [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:112:43:[m[K [01;31m[Kerror: [m[K‘[01m[KTfBuffer[m[K’ was not declared in this scope
+     tf2_ros::TransformListener tfListener([01;31m[KTfBuffer[m[K);
+                                           [01;31m[K^~~~~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:112:43:[m[K [01;36m[Knote: [m[Ksuggested alternative: ‘[01m[KtfBuffer[m[K’
+     tf2_ros::TransformListener tfListener([01;36m[KTfBuffer[m[K);
+                                           [01;36m[K^~~~~~~~[m[K
+                                           [32m[KtfBuffer[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:126:13:[m[K [01;31m[Kerror: [m[K‘[01m[Kpub[m[K’ was not declared in this scope
+             [01;31m[Kpub[m[K.publish(new_goal_msg); //PUÒ ESSERE FATTA DIRETTAMENTE NELLA CALLBACK?
+             [01;31m[K^~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:126:13:[m[K [01;36m[Knote: [m[Ksuggested alternative: ‘[01m[Ksub[m[K’
+             [01;36m[Kpub[m[K.publish(new_goal_msg); //PUÒ ESSERE FATTA DIRETTAMENTE NELLA CALLBACK?
+             [01;36m[K^~~[m[K
+             [32m[Ksub[m[K
+In file included from [01m[K/usr/include/boost/function/detail/maybe_include.hpp:18:0[m[K,
+                 from [01m[K/usr/include/boost/function/detail/function_iterate.hpp:14[m[K,
+                 from [01m[K/usr/include/boost/preprocessor/iteration/detail/iter/forward1.hpp:52[m[K,
+                 from [01m[K/usr/include/boost/function.hpp:64[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/forwards.h:40[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/common.h:37[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/ros.h:43[m[K,
+                 from [01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:1[m[K:
+/usr/include/boost/function/function_template.hpp: In instantiation of ‘[01m[Kstatic void boost::detail::function::void_function_invoker1<FunctionPtr, R, T0>::invoke(boost::detail::function::function_buffer&, T0) [with FunctionPtr = void (*)(const int&); R = void; T0 = const ros::TimerEvent&][m[K’:
+[01m[K/usr/include/boost/function/function_template.hpp:925:38:[m[K   required from ‘[01m[Kvoid boost::function1<R, T1>::assign_to(Functor) [with Functor = void (*)(const int&); R = void; T0 = const ros::TimerEvent&][m[K’
+[01m[K/usr/include/boost/function/function_template.hpp:716:7:[m[K   required from ‘[01m[Kboost::function1<R, T1>::function1(Functor, typename boost::enable_if_c<(! boost::is_integral<Functor>::value), int>::type) [with Functor = void (*)(const int&); R = void; T0 = const ros::TimerEvent&; typename boost::enable_if_c<(! boost::is_integral<Functor>::value), int>::type = int][m[K’
+[01m[K/usr/include/boost/function/function_template.hpp:1061:16:[m[K   required from ‘[01m[Kboost::function<R(T0)>::function(Functor, typename boost::enable_if_c<(! boost::is_integral<Functor>::value), int>::type) [with Functor = void (*)(const int&); R = void; T0 = const ros::TimerEvent&; typename boost::enable_if_c<(! boost::is_integral<Functor>::value), int>::type = int][m[K’
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:119:73:[m[K   required from here
+[01m[K/usr/include/boost/function/function_template.hpp:118:11:[m[K [01;31m[Kerror: [m[Kinvalid initialization of reference of type ‘[01m[Kconst int&[m[K’ from expression of type ‘[01m[Kconst ros::TimerEvent[m[K’
+           [01;31m[KB[m[KOOST_FUNCTION_RETURN(f(BOOST_FUNCTION_ARGS));
+           [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/MoveRobot.dir/src/move.cpp.o] Error 1
+make[1]: *** [CMakeFiles/MoveRobot.dir/all] Error 2
+make: *** [all] Error 2

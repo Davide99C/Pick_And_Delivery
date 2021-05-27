@@ -1,0 +1,1 @@
+/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/share/common-lisp/ros/move_robot/msg/_package.lisp
