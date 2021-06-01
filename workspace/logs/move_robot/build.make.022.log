@@ -1,0 +1,16 @@
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target _move_robot_generate_messages_check_deps_NewGoal
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_lisp
+[ 11%] Built target move_robot_generate_messages_nodejs
+[ 22%] Built target move_robot_generate_messages_cpp
+[ 44%] Built target move_robot_generate_messages_eus
+[35m[1mScanning dependencies of target move[0m
+[ 66%] Built target move_robot_generate_messages_py
+[ 77%] Built target move_robot_generate_messages_lisp
+[ 88%] [32mBuilding CXX object CMakeFiles/move.dir/src/move.cpp.o[0m
+[ 88%] Built target move_robot_generate_messages
+[100%] [32m[1mLinking CXX executable /home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/lib/move_robot/move[0m
+[100%] Built target move

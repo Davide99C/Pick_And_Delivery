@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="index.js"type="text/javascript" lang="javascript" ></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="index.css">
+        <title> Pick and Delivery Robot</title>
+    </head>
+    <body>
+
+        <h1 id="titolo1"> BENVENUTI NELL'EDIFICIO! </h1>
+        <h2 id="titolo2"> QUI POTRETE INVIARE E RICEVERE PACCHI GRAZIE AL SERVIZIO DEL NOSTRO ROBOT! </h2>
+        <form action="dati.php" class ="form-signin" method="POST" name="myForm" id="form-id">
+            <h3> Seleziona la stanza dove effettuare l'accesso: </h3> 
+            <table>
+                <tr>
+                    <th><label> Sala cinema <input type="checkbox" name="stanza" value="sala cinema" /> </label> </th> 
+                    <th><label> Sala biliardo <input type="checkbox" name="stanza" value="sala biliardo" /> </label> </th> 
+                </tr>
+                <tr>
+                     <th><label> Sala da ballo <input type="checkbox" name="stanza" value="sala da ballo" /> </label> </th> 
+                <th><label> Area fumatori <input type="checkbox" name="stanza" value="area fumatori" /> </label> </th> 
+                </tr>
+                <tr>
+                    <th><label> Sala giochi <input type="checkbox" name="stanza" value="sala giochi" /> </label> </th> 
+                    <th><label> Sala studio <input type="checkbox" name="stanza" value="sala studio" /> </label> </th> 
+                </tr>
+                <tr>
+                    <th><label> Bagno <input type="checkbox" name="stanza" value="bagno" /> </label> </th> 
+                    <th><label> Terrazza <input type="checkbox" name="stanza" value="terrazza" /> </label> </th> 
+                </tr>
+            </table>
+            <br>
+            <button type="button" onclick="EventHandlers()"> Accedi </button>
+        </form>
+
+
+    </body>
+</html>
+
+
+

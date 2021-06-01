@@ -54,6 +54,8 @@ void setGoal_CallBack( const move_robot::NewGoal& new_goal) {
     target_position[0] = new_goal_msg.pose.position.x;
     target_position[1] = new_goal_msg.pose.position.y;
 
+    ROS_INFO("SETTO IL GOAL");
+
 }
 
 void position_CallBack( const tf2_msgs::TFMessage& tf) {
@@ -125,6 +127,7 @@ int main(int argc, char**argv) {
     while(ros::ok){
         //trovare un modo per verificare se il messaggio va pubblicato 
         if(message_published){
+            ROS_INFO("Publishing a new goal position");
             pub.publish(new_goal_msg); //PUÒ ESSERE FATTA DIRETTAMENTE NELLA CALLBACK?
             message_published=0;
         }
@@ -132,5 +135,6 @@ int main(int argc, char**argv) {
         loop_rate.sleep();
         ++count;
     }
+    return 0;
     
 }

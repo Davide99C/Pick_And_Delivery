@@ -1,0 +1,38 @@
+body {
+    background: rgba(0, 0, 0, 0.856);
+    padding-top: 50px;
+}
+
+.form-signin {
+    text-align: center;
+    margin:auto;
+}
+
+h1,h2 {
+    text-align: center;
+    color: rgb(177, 0, 0);
+    text-shadow: 2px 2px 4px;
+    font-weight:200;
+}
+
+h3 {
+    color:white;
+}
+
+label {
+    color:white;
+    float:left;
+}
+
+table {
+    margin:auto;
+}
+
+input[type="submit"] {
+    padding:5px;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
