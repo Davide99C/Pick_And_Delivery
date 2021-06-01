@@ -4,12 +4,12 @@ CXX=g++
 CXXOPTS=-Wall -std=gnu++11 -O3
 
 #COBJS=proc_control.o
-HEADERS= websocket.h 
+HEADERS= header.h 
 #OBJS=proc_shell.o env.o
 
 .phony=clean all
 
-BINS= web reader_db#proc_shell simple
+BINS= main #reader_db #proc_shell simple
 all:	$(BINS)
 
 
@@ -19,16 +19,11 @@ all:	$(BINS)
 %.o:	%.cpp $(HEADERS)
 	$(CXX) -c $(CXXOPTS) $<
 
-web:	main.cpp websocket.o 
-	$(CXX) -o $@ $^ $(CXXOPTS) -lpthread -lwebsockets
+main:	main.cpp websocket.o reader_db.o
+	$(CXX) -o $@ $^ $(CXXOPTS) -lpthread -lwebsockets -lmysqlclient -lssl -lcrypto -L/usr/include/mysql
 
-reader_db: reader_db.cpp 
-	$(CXX) -o $@ $^ $(CXXOPTS) -lmysqlclient -lssl -lcrypto -lpthread -L/usr/include/mysql
-#proc_shell:	proc_shell_main.cpp $(COBJS) $(OBJS)
-#	$(CXX) -o $@  $^ $(CXXOPTS) -lpthread 
-
-#simple:  simple.c
-#	$(CC) -o $@ $^
+#reader_db: reader_db.cpp 
+#	$(CXX) -o $@ $^ $(CXXOPTS) -lmysqlclient -lssl -lcrypto -lpthread -L/usr/include/mysql
 
 clean:
 	rm -f *~ *.o $(BINS)

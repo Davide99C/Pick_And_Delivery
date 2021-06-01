@@ -15,7 +15,7 @@ void insertDB(MYSQL *con) {
     }
 }
 
-int main(int argc, char **argv) {
+int reader_db() {
   con = mysql_init(NULL);
 
   if (con == NULL) {
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
   }
   mysql_free_result(result);
   mysql_close(con);
-  exit(0);
+  return 1;
 }
 
 //////////////////////////////////////////////////

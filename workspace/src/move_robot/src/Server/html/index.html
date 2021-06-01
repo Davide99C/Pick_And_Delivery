@@ -9,34 +9,60 @@
         <title> Pick and Delivery Robot</title>
     </head>
     <body>
-
-        <h1 id="titolo1"> BENVENUTI NELL'EDIFICIO! </h1>
-        <h2 id="titolo2"> QUI POTRETE INVIARE E RICEVERE PACCHI GRAZIE AL SERVIZIO DEL NOSTRO ROBOT! </h2>
-        <form action="dati.php" class ="form-signin" method="POST" name="myForm" id="form-id">
-            <h3> Seleziona la stanza dove effettuare l'accesso: </h3> 
-            <table>
-                <tr>
-                    <th><label> Sala cinema <input type="checkbox" name="stanza" value="sala cinema" /> </label> </th> 
-                    <th><label> Sala biliardo <input type="checkbox" name="stanza" value="sala biliardo" /> </label> </th> 
-                </tr>
-                <tr>
-                     <th><label> Sala da ballo <input type="checkbox" name="stanza" value="sala da ballo" /> </label> </th> 
-                <th><label> Area fumatori <input type="checkbox" name="stanza" value="area fumatori" /> </label> </th> 
-                </tr>
-                <tr>
-                    <th><label> Sala giochi <input type="checkbox" name="stanza" value="sala giochi" /> </label> </th> 
-                    <th><label> Sala studio <input type="checkbox" name="stanza" value="sala studio" /> </label> </th> 
-                </tr>
-                <tr>
-                    <th><label> Bagno <input type="checkbox" name="stanza" value="bagno" /> </label> </th> 
-                    <th><label> Terrazza <input type="checkbox" name="stanza" value="terrazza" /> </label> </th> 
-                </tr>
-            </table>
-            <br>
-            <button type="button" onclick="EventHandlers()"> Accedi </button>
-        </form>
-
-
+        <img src="robot.png" id="sfondo"></img>
+        <section id="main">
+            <h1 id="titolo1"> BENVENUTO NELL'EDIFICIO! </h1>
+            <h2 id="titolo2"> QUI POTRETE INVIARE E RICEVERE PACCHI GRAZIE AL SERVIZIO DEL NOSTRO ROBOT! </h2>
+            <form action="" class ="form-signin" method="POST" name="myForm" id="form-id">
+                <h3> Seleziona la stanza dove effettuare l'accesso: </h3> 
+                <table>
+                    <tr>
+                        <th><label> Sala cinema <input type="checkbox" name="stanza" value="sala cinema" /> </label> </th> 
+                        <th><label> Sala biliardo <input type="checkbox" name="stanza" value="sala biliardo" /> </label> </th> 
+                    </tr>
+                    <tr>
+                        <th><label> Sala da ballo <input type="checkbox" name="stanza" value="sala da ballo" /> </label> </th> 
+                    <th><label> Area fumatori <input type="checkbox" name="stanza" value="area fumatori" /> </label> </th> 
+                    </tr>
+                    <tr>
+                        <th><label> Sala giochi <input type="checkbox" name="stanza" value="sala giochi" /> </label> </th> 
+                        <th><label> Sala studio <input type="checkbox" name="stanza" value="sala studio" /> </label> </th> 
+                    </tr>
+                    <tr>
+                        <th><label> Bagno <input type="checkbox" name="stanza" value="bagno" /> </label> </th> 
+                        <th><label> Terrazza <input type="checkbox" name="stanza" value="terrazza" /> </label> </th> 
+                    </tr>
+                </table>
+                <br>
+                <button type="button" onclick="Accedi()"> Accedi </button>
+            </form>
+            <div id="consegna">
+                <button type="button" onclick="richiamaRobot()"> Chiama il ROBOT </button>
+                <span id="attesa"><h3> Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire:</h3></span>
+                <table>
+                    <tr>
+                        <th><label> Sala cinema <input type="checkbox" name="stanza2" value="sala cinema" /> </label> </th> 
+                        <th><label> Sala biliardo <input type="checkbox" name="stanza2" value="sala biliardo" /> </label> </th> 
+                    </tr>
+                    <tr>
+                        <th><label> Sala da ballo <input type="checkbox" name="stanza2" value="sala da ballo" /> </label> </th> 
+                    <th><label> Area fumatori <input type="checkbox" name="stanza2" value="area fumatori" /> </label> </th> 
+                    </tr>
+                    <tr>
+                        <th><label> Sala giochi <input type="checkbox" name="stanza2" value="sala giochi" /> </label> </th> 
+                        <th><label> Sala studio <input type="checkbox" name="stanza2" value="sala studio" /> </label> </th> 
+                    </tr>
+                    <tr>
+                        <th><label> Bagno <input type="checkbox" name="stanza2" value="bagno" /> </label> </th> 
+                        <th><label> Terrazza <input type="checkbox" name="stanza2" value="terrazza" /> </label> </th> 
+                    </tr>
+                </table>
+                <br>
+                <button type="button" onclick="Spedisci()" > Spedisci </button>
+                <span id="transito"> </span>
+            </div>
+            <img src="mappa.png" id="mappa"></img>
+        </section>
     </body>
 </html>
 

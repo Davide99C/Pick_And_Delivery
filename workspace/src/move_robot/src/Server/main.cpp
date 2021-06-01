@@ -1,51 +1,24 @@
 #include <iostream>
 #include <fstream>
-//#include "proc_shell.h"
-#include "websocket.h"
+#include "header.h"
 #include <stdlib.h>
 #include <unistd.h>
 
-/*
-void cleanShutdown() {
-  std::cerr << "clean shutdown" << std::endl;
-  WebServer_stop();
-  //ProcShell::stop();
-}
-
-
-int main(int argc, char** argv) {
-  std::ifstream is(argv[1]);
-  
-  std::cerr << "startnig process monitor: " << std::endl;
-  //ProcShell::start();
-  std::cerr << "done " << std::endl;
-
-  int16_t port=9002;
-  if (argc>2) {
-    port=atoi(argv[2]);
-  }
-    
-  WebServer_start(port, ".");
-  atexit(cleanShutdown);
-
-  while (1) {
-    pause();
-    char buf[1024];
-    std::cerr << ">";
-    std::cin.getline(buf,1024);
-    ProcShell::parseCommand(buf);
-    
-  }
-}*/
+using namespace std;
 
 int main(int argc, char const *argv[]){
 
-
+  cout << "\nLETTURA DEI DATI DAL DATABASE\n" << endl;
+  if (reader_db() != 1) {
+      cerr << "Errore nella lettura dal database" << endl;
+      return EXIT_FAILURE;
+    }
+  cout << "\nAVVIO CONNESSIONE SULLA PORTA 9002\n" << endl;
   if(webServerCreate() == -1){
-    fprintf(stderr, "Errore nella socket\n");
+    cerr << "Errore nella socket\n" << endl;
     return EXIT_FAILURE;
   };
 
-
+  
   return EXIT_SUCCESS;
 }
