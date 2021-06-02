@@ -3,20 +3,17 @@
 #include <mysql/mysql.h>
 //#include <mysql/my_byteorder.h>
 //#include <mysql/my_global.h>
+#include "header.h"
+#include <string>
+#include <iostream>
+#include <cstdlib>
 
-
+using namespace std;
 MYSQL *con;
 
-void insertDB(MYSQL *con) {
-    if (mysql_query(con, "INSERT INTO Stanze VALUES(sala relax,5.23,21.88,0.02)")) {
-        fprintf(stderr, "%s\n", mysql_error(con));
-        mysql_close(con);
-        exit(1);
-    }
-}
-
-int reader_db() {
-  con = mysql_init(NULL);
+//AVVIO LA CONNESSIONE CON IL DATABASE
+int connection() {
+	con = mysql_init(NULL);
 
   if (con == NULL) {
       fprintf(stderr, "mysql_init() failed\n");
@@ -27,6 +24,16 @@ int reader_db() {
       fprintf(stderr, "mysql_real_connect() failed\n");
       exit(EXIT_FAILURE);
   }
+  return 1;
+}
+
+//LEGGO TUTTE LE STANZE DAL DATABASE
+int reader_table() {
+
+	if (!connection()) {
+		exit(EXIT_FAILURE);
+	}
+
   if (mysql_query(con, "SELECT * FROM Stanze")) {
       //finish_with_error(con);
       fprintf(stderr, "mysql_query() failed\n");
@@ -53,7 +60,69 @@ int reader_db() {
   return 1;
 }
 
+//INSERISCO UNA NUOVO STANZA NEL DATABASE
+//NON UTILE PER ORA
+void insertDB(string stanza, string x, string y, string theta) {
+
+	if (!connection()) {
+		exit(EXIT_FAILURE);
+	}
+
+	const char* query = (char*)malloc(sizeof(char*));
+	string aux = "INSERT INTO Stanze VALUES('"+stanza+"',"+x+","+y+","+theta+")";
+	query = aux.c_str();
+    if (mysql_query(con, query)) {
+        fprintf(stderr, "%s\n", mysql_error(con));
+        mysql_close(con);
+        exit(1);
+    }
+}
+
+//PRENDO LE COORDINATE DELLA STANZA SCELTA DALL'UTENTE
+float* getStanza(string buf) {
+	
+	if (!connection()) {
+		exit(EXIT_FAILURE);
+	}
+	
+	float* coordinate = (float*)malloc(sizeof(float*)*3);
+
+	const char* query = (char*)malloc(sizeof(char*));
+	string aux = "SELECT * FROM Stanze WHERE nome='"+buf+"'";
+	query = aux.c_str();
+	if (mysql_query(con, (const char*) query)) {
+      //finish_with_error(con);
+      fprintf(stderr, "mysql_query() failed\n");
+      exit(EXIT_FAILURE);
+	}
+	
+	MYSQL_RES *result = mysql_store_result(con);
+	if (result == NULL) {
+		//finish_with_error(con);
+		fprintf(stderr, "mysql_store_result() failed\n");
+		exit(EXIT_FAILURE);
+	}
+
+	int num_fields = mysql_num_fields(result);
+	MYSQL_ROW row;
+	while ((row = mysql_fetch_row(result))) {
+		for(int i = 0; i < num_fields; i++) {
+			printf("%s ", row[i] ? row[i] : "NULL");
+		}
+			coordinate[0]=atof(row[1]);
+			coordinate[1]=atof(row[2]);
+			coordinate[2]=atof(row[3]);
+			printf("\n");
+	}
+	mysql_free_result(result);
+	mysql_close(con);
+
+	return coordinate;
+
+}
+
 //////////////////////////////////////////////////
+//PROVA CON I DRIVER CONNECTOR/C++
 /*
 #include <string>
 #include <iostream>

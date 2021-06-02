@@ -8,8 +8,8 @@ using namespace std;
 
 int main(int argc, char const *argv[]){
 
-  cout << "\nLETTURA DEI DATI DAL DATABASE\n" << endl;
-  if (reader_db() != 1) {
+  cout << "\nLETTURA DELLE STANZE DAL DATABASE\n" << endl;
+  if (reader_table() != 1) {
       cerr << "Errore nella lettura dal database" << endl;
       return EXIT_FAILURE;
     }

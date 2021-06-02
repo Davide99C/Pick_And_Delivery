@@ -8,6 +8,7 @@
 #include <sstream>
 #include <libwebsockets.h>
 #include <set>
+#include "header.h"
 
 
 /*
@@ -15,10 +16,11 @@
 #define MAX_CONNECTIONS 1024
 #define PATH_SIZE 1024
 
-using namespace std;
+
 */
 ////////////////////////////////////////////////////////////////////////////////////////
 
+using namespace std;
 
 typedef struct WSContent{
   int port;
@@ -66,12 +68,22 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
 
   case LWS_CALLBACK_RECEIVE: {
 
+      //GESTISCO LA RISPOSTA DA PARTE DELL'UTENTE
       char *buf = (char*) malloc((sizeof(char)*len)+1);
       strncpy(buf,(char*)in,len);
       buf[len] = '\0';
-      printf("%s\n",buf);
+      cerr << buf << " " << endl;
       int size = strlen(buf);
-      lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT); 
+      lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
+
+      if (strcmp(buf,"chiamata")) {
+        float *coordinate = getStanza((string)buf);
+        cout << "INVIO COORDINATE AL ROBOT: " << coordinate[0] << " "
+        << coordinate[1] << " " << coordinate[2] << " " << endl;
+      }
+      
+      
+
       //free(buf);
 
     }

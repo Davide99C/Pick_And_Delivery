@@ -1,12 +1,12 @@
 body {
-    background-color:black;
+    background-color:rgb(255, 255, 255);
 }
 
 #sfondo {
     height:100%;
     width:100%;
     opacity:1;
-    margin-top:-10%;
+    background-size: cover;
 }
 
 #main {
@@ -20,6 +20,7 @@ body {
     padding:100px;
     background-color:rgba(0, 0, 0, 0.703);
     border-radius: 10px;
+    /*height: 100vh;*/
 }
 
 .form-signin {
@@ -69,4 +70,11 @@ button {
     margin:auto;
     padding-bottom:50px;
     display:none;
+}
+
+@media screen and(min-width:700px) {
+    #mappa {
+        height: 300px;
+        width: 550px;
+    }
 }
