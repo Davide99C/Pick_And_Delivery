@@ -1,0 +1,10 @@
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp:57:12:[m[K [01;31m[Kerror: [m[Kredeclaration of ‘[01m[Kfloat* coordinate[m[K’
+     float* [01;31m[Kcoordinate[m[K = (float*)malloc(sizeof(float)*3);
+            [01;31m[K^~~~~~~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp:39:12:[m[K [01;36m[Knote: [m[K‘[01m[Kfloat* coordinate[m[K’ previously declared here
+     float* [01;36m[Kcoordinate[m[K = (float*)malloc(sizeof(float)*3);
+            [01;36m[K^~~~~~~~~~[m[K
+make[2]: *** [CMakeFiles/sender.dir/src/sender.cpp.o] Error 1
+make[1]: *** [CMakeFiles/sender.dir/all] Error 2
+make: *** [all] Error 2

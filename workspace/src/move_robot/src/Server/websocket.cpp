@@ -8,17 +8,19 @@
 #include <sstream>
 #include <libwebsockets.h>
 #include <set>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
 #include "header.h"
-
 
 /*
 #define BUF_SIZE 1024*1024
 #define MAX_CONNECTIONS 1024
 #define PATH_SIZE 1024
-
-
 */
 ////////////////////////////////////////////////////////////////////////////////////////
+#define MYFIFO "my_fifo" 
 
 using namespace std;
 
@@ -57,33 +59,58 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
                                   enum lws_callback_reasons reason,
                                   void *user, void *in, size_t len) {
 
-
   switch (reason) {
   case LWS_CALLBACK_ESTABLISHED:
     printf("connection established\n");
 
     break;
 
-
-
   case LWS_CALLBACK_RECEIVE: {
 
       //GESTISCO LA RISPOSTA DA PARTE DELL'UTENTE
       char *buf = (char*) malloc((sizeof(char)*len)+1);
       strncpy(buf,(char*)in,len);
-      buf[len] = '\0';
-      cerr << buf << " " << endl;
-      int size = strlen(buf);
-      lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
+      float *coordinate;
 
-      if (strcmp(buf,"chiamata")) {
-        float *coordinate = getStanza((string)buf);
-        cout << "INVIO COORDINATE AL ROBOT: " << coordinate[0] << " "
-        << coordinate[1] << " " << coordinate[2] << " " << endl;
+      if (len>13) {
+        std::string s = (string)buf;
+        std::string token = s.substr(0, s.find(":")); // token is "chiamata"
+        std::string token2 = s.substr(9, s.find(".")); // token2 is stanza
+        int size = token2.length();
+        strcpy(buf, token2.c_str());
+        buf[size-1] = '\0';
+        cout << token << " --> " << buf << endl;
+        lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
       }
-      
-      
+      else {
+        buf[len] = '\0';
+        int size = strlen(buf);
+        lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
+      }
 
+      //COMUNICAZIONE TRAMITE NAMED PIPE PER LO SCAMBIO DEL MESSAGGIO (INVIO COORDINATE AL ROBOT)
+      int i;
+      int fd = open(MYFIFO,O_WRONLY);
+
+      if (!fd) {
+        cerr << "Errore apertura in scrittura della fifo" << endl;
+        return EXIT_FAILURE;
+      }
+      //prendo le coordinate da inviare al robot
+      coordinate=getStanza((string)buf); //stanza movimento robot
+
+      cout << "INVIO COORDINATE AL ROBOT: " << coordinate[0] << " "
+      << coordinate[1] << " " << coordinate[2] << " " << endl;
+      for (i=0;i<3;i++) {
+        if(write(fd,&coordinate[i],sizeof(float))==-1) {
+          cerr << "Errore di scrittura nella fifo" << endl;
+          return EXIT_FAILURE;
+        }
+      }
+    
+      close(fd);
+        
+      
       //free(buf);
 
     }
@@ -106,6 +133,14 @@ int webServerCreate(){
   struct lws_context *context;
   struct lws_context_creation_info info;
 
+  //CREZIONE FIFO
+  int res;
+  unlink(MYFIFO);
+  res = mkfifo(MYFIFO,0666);
+  if (res==-1) {
+    cerr << "Errore creazione fifo" << endl;
+    return EXIT_FAILURE;
+  }
 
   memset(&info, 0, sizeof info);
 
@@ -169,6 +204,13 @@ int webServerCreate(){
   }
 
   lws_context_destroy(context);
+
+  //DISTRUZIONE FIFO
+  // res = unlink(MYFIFO);
+  // if (res==-1) {
+  //   cerr << "Errore unlink fifo" << endl;
+  //   return EXIT_FAILURE;
+  // }
 
   return 0;
 

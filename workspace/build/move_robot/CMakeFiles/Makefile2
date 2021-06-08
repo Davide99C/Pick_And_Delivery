@@ -1295,6 +1295,43 @@ clean: CMakeFiles/clean_test_results.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/sender.dir
+
+# All Build rule for target.
+CMakeFiles/sender.dir/all: CMakeFiles/move_robot_generate_messages_cpp.dir/all
+	$(MAKE) -f CMakeFiles/sender.dir/build.make CMakeFiles/sender.dir/depend
+	$(MAKE) -f CMakeFiles/sender.dir/build.make CMakeFiles/sender.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/build/move_robot/CMakeFiles --progress-num=21,22 "Built target sender"
+.PHONY : CMakeFiles/sender.dir/all
+
+# Include target in all.
+all: CMakeFiles/sender.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/sender.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/build/move_robot/CMakeFiles 3
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/sender.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/build/move_robot/CMakeFiles 0
+.PHONY : CMakeFiles/sender.dir/rule
+
+# Convenience name for target.
+sender: CMakeFiles/sender.dir/rule
+
+.PHONY : sender
+
+# clean rule for target.
+CMakeFiles/sender.dir/clean:
+	$(MAKE) -f CMakeFiles/sender.dir/build.make CMakeFiles/sender.dir/clean
+.PHONY : CMakeFiles/sender.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/sender.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/doxygen.dir
 
 # All Build rule for target.

@@ -7,20 +7,26 @@ body {
     width:100%;
     opacity:1;
     background-size: cover;
+    position: fixed;
 }
 
-#main {
-    top:10%;
+#main { 
     margin:auto;
-    left: 20%;
-    right: 20%;
+    top:0%;
+    left: 0%;
+    right: 0%;
     position: absolute;
     z-index: 2;
     box-shadow: 2px 4px 4px 0px black;
     padding:100px;
     background-color:rgba(0, 0, 0, 0.703);
-    border-radius: 10px;
-    /*height: 100vh;*/
+    /*border-radius: 10px;*/
+    height: auto;
+}
+
+#stanza-log {
+    display:none;
+    text-align: center;
 }
 
 .form-signin {
@@ -60,9 +66,12 @@ button {
 }
 
 #mappa {
-    height:500px;
-    width: 950px;
+    height:100%;
+    width: 100%;
+    background-size: cover;
     border-radius: 10px;
+    margin-bottom:2%;
+    opacity: 0.9;
 }
 
 #consegna {
@@ -72,9 +81,11 @@ button {
     display:none;
 }
 
-@media screen and(min-width:700px) {
-    #mappa {
-        height: 300px;
-        width: 550px;
-    }
+#utente {
+    display:none;
+    position: absolute;
+    top:0px;
+    right:20px;
+    font-size:16px;
+    color: white;
 }

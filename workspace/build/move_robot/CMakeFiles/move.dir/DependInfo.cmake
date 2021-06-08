@@ -18,6 +18,7 @@ set(CMAKE_TARGET_DEFINITIONS_CXX
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/devel/.private/move_robot/include"
+  "/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/include"
   "/opt/ros/melodic/include"
   "/opt/ros/melodic/share/xmlrpcpp/cmake/../../../include/xmlrpcpp"
   )

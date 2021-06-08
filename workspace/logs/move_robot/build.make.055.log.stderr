@@ -1,0 +1,11 @@
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp:47:18:[m[K [01;31m[Kerror: [m[K‘[01m[Kfloat32[m[K’ was not declared in this scope
+         msg.x = ([01;31m[Kfloat32[m[K) coordinate[0];
+                  [01;31m[K^~~~~~~[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp:47:18:[m[K [01;36m[Knote: [m[Ksuggested alternative: ‘[01m[Kfloat_t[m[K’
+         msg.x = ([01;36m[Kfloat32[m[K) coordinate[0];
+                  [01;36m[K^~~~~~~[m[K
+                  [32m[Kfloat_t[m[K
+make[2]: *** [CMakeFiles/sender.dir/src/sender.cpp.o] Error 1
+make[1]: *** [CMakeFiles/sender.dir/all] Error 2
+make: *** [all] Error 2

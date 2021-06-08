@@ -11,9 +11,18 @@
     <body>
         <img src="robot.png" id="sfondo"></img>
         <section id="main">
+            <div id="utente"></div>
             <h1 id="titolo1"> BENVENUTO NELL'EDIFICIO! </h1>
+            <h3 id='stanza-log'></h3>
             <h2 id="titolo2"> QUI POTRETE INVIARE E RICEVERE PACCHI GRAZIE AL SERVIZIO DEL NOSTRO ROBOT! </h2>
             <form action="" class ="form-signin" method="POST" name="myForm" id="form-id">
+                <h3> Inserisci nome e cognome prima di accedere (in alternativa effettuerai l'accesso come ospite) </h3>
+                    <table>
+                        <tr>
+                            <th> <input type="text" name="name" placeholder="name" id="name"/></th>
+                            <th> <input type="text" name="surname" placeholder="surname" id="surname"/></th>
+                        </tr>
+                    </table>
                 <h3> Seleziona la stanza dove effettuare l'accesso: </h3> 
                 <table>
                     <tr>
@@ -61,6 +70,7 @@
                 <button type="button" onclick="Spedisci()" > Spedisci </button>
                 <span id="transito"> </span>
             </div>
+            <h2> ORIENTATI CON LA MAPPA DELL'EDIFICIO! </h2>
             <img src="mappa.png" id="mappa"></img>
         </section>
     </body>

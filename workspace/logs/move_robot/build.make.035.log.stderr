@@ -1,0 +1,4 @@
+make[2]: *** No rule to make target '/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/sender.cpp', needed by 'CMakeFiles/sender.dir/src/sender.cpp.o'. Stop.
+make[1]: *** [CMakeFiles/sender.dir/all] Error 2
+make[1]: *** Waiting for unfinished jobs....
+make: *** [all] Error 2

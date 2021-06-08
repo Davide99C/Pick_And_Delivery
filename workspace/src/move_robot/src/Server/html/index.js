@@ -2,19 +2,30 @@
 //var ws = new WebSocket('ws://'+self.location.host+'/','web-protocol');
 var ws = new WebSocket('ws://127.0.0.1:9002/','web-protocol');
 
+var nome, cognome;
+
 //QUI RICEVE LA RISPOSTA DA CPP
 ws.onmessage = function(event) {
    var risposta = event.data;
    if (risposta=="chiamata") return attesaRobot();
    if (document.getElementById("consegna").style.display=="block") {
-        document.getElementById("transito").innerHTML = '<h3> Il pacco è in transito verso la stanza: '+risposta+'</h3>';
+        document.getElementById("transito").innerHTML = '<h3> Il Robot è in transito verso la stanza: '+risposta+'</h3>';
    }
    else {
-        document.getElementById("titolo1").innerHTML="Hai effettuato l'accesso nella stanza: "+risposta;
-        document.getElementById("titolo2").innerHTML="Inizia subito a spedire tramite il robot! ";
+        document.getElementById("titolo1").innerHTML="Hai effettuato l'accesso nella stanza: ";
+        document.getElementById("stanza-log").style.display="block";
+        document.getElementById("stanza-log").innerHTML = risposta;
+        document.getElementById("titolo2").innerHTML="Attendi l'arrivo del robot ed inizia subito a spedire pacchi! ";
         document.getElementById("form-id").style.display="none";
         document.getElementById("main").padding="200px";
-        document.getElementById("consegna").style.display="block"; }
+        document.getElementById("consegna").style.display="block"; 
+        if (nome && cognome) {
+            console.log(nome);
+            console.log(cognome);
+            document.getElementById("utente").style.display = "block";
+            document.getElementById("utente").innerHTML = "<img src='image.png' style='height:25px;widht:25px;margin-top:10px'></img><span style='top:10px;'>&nbsp"+nome+" "+cognome+"</span>";
+        }
+    }
 }
 
 //QUI INVIA LA STANZA AL CPP
@@ -23,6 +34,8 @@ function sendPacket(packet) {
 }
 
 function Accedi() {
+    nome = document.getElementById("name").value;
+    cognome = document.getElementById("surname").value;
     var stanza;
     var cnt=0;
     var giusta;
@@ -45,12 +58,12 @@ function Accedi() {
         return false;
     }
     else {
-        sendPacket(giusta.value);
+        sendPacket(giusta.value);//+"-"+document.getElementById("stanza-log"));
     }
 }
 
 function Spedisci() {
-    validaStanza2();
+    //validaStanza2();
     var stanza;
     var cnt=0;
     var giusta;
@@ -97,7 +110,8 @@ function validaStanza2() {
 }
 
 function richiamaRobot() {
-    sendPacket("chiamata");
+    var stanza_log = document.getElementById("stanza-log").innerHTML;
+    sendPacket("chiamata:"+stanza_log+".");
 }
 
 function attesaRobot() {

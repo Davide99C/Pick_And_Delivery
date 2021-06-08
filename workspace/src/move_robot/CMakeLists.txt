@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   tf2
   tf2_ros
+  genmsg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -119,7 +120,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -211,4 +212,8 @@ include_directories(
 add_executable(move src/move.cpp)
 target_link_libraries(move ${catkin_LIBRARIES})
 add_dependencies(move move_robot_generate_messages_cpp)
+
+add_executable(sender src/sender.cpp)
+target_link_libraries(sender ${catkin_LIBRARIES})
+add_dependencies(sender move_robot_generate_messages_cpp)
 
