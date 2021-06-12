@@ -14,13 +14,11 @@
 #include <fcntl.h>
 #include "header.h"
 
-/*
-#define BUF_SIZE 1024*1024
-#define MAX_CONNECTIONS 1024
-#define PATH_SIZE 1024
-*/
+
 ////////////////////////////////////////////////////////////////////////////////////////
 #define MYFIFO "my_fifo" 
+
+int count=0; //per verificare che il robot sia scarico
 
 using namespace std;
 
@@ -71,20 +69,26 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
       char *buf = (char*) malloc((sizeof(char)*len)+1);
       strncpy(buf,(char*)in,len);
       float *coordinate;
+      int size;
 
+      //VERIFICO SE LA STRINGA È RELATIVA AL BOTTONE "CHIAMA ROBOT" O MENO
       if (len>13) {
         std::string s = (string)buf;
         std::string token = s.substr(0, s.find(":")); // token is "chiamata"
         std::string token2 = s.substr(9, s.find(".")); // token2 is stanza
-        int size = token2.length();
+        size = token2.length();
         strcpy(buf, token2.c_str());
+        // char* token = strtok(buf,":"); // token is "chiamata"
+        // char* token2 = strtok(NULL,":"); // token2 is stanza
+        // size = strlen(token2);
+        // strcpy(buf, token2);
         buf[size-1] = '\0';
         cout << token << " --> " << buf << endl;
         lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
       }
       else {
         buf[len] = '\0';
-        int size = strlen(buf);
+        size = strlen(buf);
         lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
       }
 
@@ -106,6 +110,17 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
           cerr << "Errore di scrittura nella fifo" << endl;
           return EXIT_FAILURE;
         }
+      }
+      count++;
+      if (count==3) {
+        string s = "scarico";
+        char *scarico = (char*) malloc((sizeof(char)*8));
+        strcpy(scarico, s.c_str());
+        size = strlen(scarico);
+        scarico[size] = '\0';
+        size = strlen(scarico);
+        lws_write(wsi, (unsigned char*) scarico, size, LWS_WRITE_TEXT);
+        count = 0;
       }
     
       close(fd);
@@ -140,6 +155,7 @@ int webServerCreate(){
   if (res==-1) {
     cerr << "Errore creazione fifo" << endl;
     return EXIT_FAILURE;
+
   }
 
   memset(&info, 0, sizeof info);

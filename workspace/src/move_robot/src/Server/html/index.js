@@ -7,9 +7,9 @@ var nome, cognome;
 //QUI RICEVE LA RISPOSTA DA CPP
 ws.onmessage = function(event) {
    var risposta = event.data;
-   if (risposta=="chiamata") return attesaRobot();
    if (document.getElementById("consegna").style.display=="block") {
-        document.getElementById("transito").innerHTML = '<h3> Il Robot è in transito verso la stanza: '+risposta+'</h3>';
+        if (risposta=="scarico") return caricaRobot();
+        else document.getElementById("transito").innerHTML = '<h3> Il Robot è in transito verso la stanza: '+risposta+'</h3>';
    }
    else {
         document.getElementById("titolo1").innerHTML="Hai effettuato l'accesso nella stanza: ";
@@ -110,13 +110,23 @@ function validaStanza2() {
 }
 
 function richiamaRobot() {
+    attesaRobot();
     var stanza_log = document.getElementById("stanza-log").innerHTML;
     sendPacket("chiamata:"+stanza_log+".");
 }
 
 function attesaRobot() {
-    //setTimeout(() => {
-        document.getElementById("attesa").innerHTML = '<h3> Attendi che il robot arrivi o che sia disponibile... <br>Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire </h3>';
-      //},5000);
+    document.getElementById("attesa").innerHTML = '<h3> Attendi che il robot arrivi o che sia disponibile... <br>Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire </h3>';
+    setTimeout(() => {
+        document.getElementById("attesa").innerHTML = '<h3> Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire </h3>';
+      },10000);
    
+}
+
+function caricaRobot() {
+    document.getElementById("azione-robot").innerHTML = "<h3> Il ROBOT è scarico, attendi che torni alla postazione di ricarica prima di richiamarlo</h3>";
+    document.getElementById("transito").innerHTML = '';
+    setTimeout(() => {
+        document.getElementById("azione-robot").innerHTML = "<button type='button' onclick='richiamaRobot()'> Chiama il ROBOT </button><span id='attesa' ><h3> Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire:</h3></span>";
+     },25000);
 }

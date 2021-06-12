@@ -46,8 +46,10 @@
                 <button type="button" onclick="Accedi()"> Accedi </button>
             </form>
             <div id="consegna">
-                <button type="button" onclick="richiamaRobot()"> Chiama il ROBOT </button>
-                <span id="attesa"><h3> Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire:</h3></span>
+                <div id="azione-robot">
+                    <button type="button" onclick="richiamaRobot()"> Chiama il ROBOT </button>
+                    <span id="attesa" ><h3> Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire:</h3></span>
+                </div>
                 <table>
                     <tr>
                         <th><label> Sala cinema <input type="checkbox" name="stanza2" value="sala cinema" /> </label> </th> 

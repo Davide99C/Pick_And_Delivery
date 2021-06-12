@@ -27,34 +27,68 @@ tf2_ros::Buffer tfBuffer;
 size_t n = 10;
 int message_published = 0;
 int cruising = 0;
+int scarico;
+int consegnato = 0;
 int T = 2;
 
 
 void setGoal_CallBack( const move_robot::NewGoal& new_goal) {
     //SETTO I CAMPI DEL MESSAGGIO geometry_msgs::PoseStamped
-    new_goal_msg.header.seq = n;
-    n++;
 
-    new_goal_msg.header.stamp = ros::Time::now();
-    new_goal_msg.header.frame_id = "map";
+    if (scarico==3){
+        new_goal_msg.header.seq = n;
+        n++;
 
-    new_goal_msg.pose.position.x = new_goal.x;
-    new_goal_msg.pose.position.y = new_goal.y;
-    new_goal_msg.pose.position.z = 0;
+        new_goal_msg.header.stamp = ros::Time::now();
+        new_goal_msg.header.frame_id = "map";
 
-    new_goal_msg.pose.orientation.x = 0;
-    new_goal_msg.pose.orientation.y = 0;
-    new_goal_msg.pose.orientation.z = 0;
-    new_goal_msg.pose.orientation.w = new_goal.theta;
+        new_goal_msg.pose.position.x = 51.52;//new_goal.x;
+        new_goal_msg.pose.position.y = 12.04;//new_goal.y;
+        new_goal_msg.pose.position.z = 0;
 
-    message_published = 1;
-    cruising = 1;
+        new_goal_msg.pose.orientation.x = 0;
+        new_goal_msg.pose.orientation.y = 0;
+        new_goal_msg.pose.orientation.z = 0;
+        new_goal_msg.pose.orientation.w = 0.02;//new_goal.theta;
 
-    //POSA GOAL
-    target_position[0] = new_goal_msg.pose.position.x;
-    target_position[1] = new_goal_msg.pose.position.y;
+        message_published = 1;
+        cruising = 1;
+        scarico = 0;
+        consegnato = 0;
 
-    ROS_INFO("SETTO IL GOAL");
+        //POSA GOAL
+        target_position[0] = new_goal_msg.pose.position.x;
+        target_position[1] = new_goal_msg.pose.position.y;
+
+        ROS_INFO("ROBOT SCARICO");
+    }
+
+    else if (cruising==0) {
+        new_goal_msg.header.seq = n;
+        n++;
+
+        new_goal_msg.header.stamp = ros::Time::now();
+        new_goal_msg.header.frame_id = "map";
+
+        new_goal_msg.pose.position.x = new_goal.x;
+        new_goal_msg.pose.position.y = new_goal.y;
+        new_goal_msg.pose.position.z = 0;
+
+        new_goal_msg.pose.orientation.x = 0;
+        new_goal_msg.pose.orientation.y = 0;
+        new_goal_msg.pose.orientation.z = 0;
+        new_goal_msg.pose.orientation.w = new_goal.theta;
+
+        message_published = 1;
+        cruising = 1;
+        scarico++;
+
+        //POSA GOAL
+        target_position[0] = new_goal_msg.pose.position.x;
+        target_position[1] = new_goal_msg.pose.position.y;
+
+        ROS_INFO("SETTO IL GOAL");
+    }
 
 }
 
@@ -81,15 +115,21 @@ void check1_callBack(const ros::TimerEvent& event){
         distance = sqrt(pow(current_position[0]-old_position[0],2)+pow(current_position[1]-old_position[1],2));
         if(distance < 0.5){
             //ROBOT BLOCCATO
-            ROS_INFO("I'm stuck");
+            ROS_INFO("ROBOT BLOCCATO");
         }
         distance = sqrt(pow(current_position[0]-target_position[0],2)+pow(current_position[1]-target_position[1],2));
         if(distance < 1.5){
             //ROBOT ARRIVATO A DESTINAZIONE
-            ROS_INFO("arrived to the goal");
-            //cosa faccio ora? 
-            //verifico se devo prendere il pacco o se lo ho portato -> agisco di consegueza
-            cruising=0;
+            if (consegnato == 0) {
+                ROS_INFO("DESTINAZIONE RAGGIUNTA");
+                cruising=0;
+                if (scarico!=0) consegnato++;
+            }
+            else {
+                ROS_INFO("CONSEGNA EFFETTUATA");
+                consegnato = 0;
+                cruising=0;
+            }
         }
     }
 }
@@ -100,7 +140,7 @@ void check2_callBack(const ros::TimerEvent& event){
     if(cruising!=0){
         distance = sqrt(pow(current_position[0]-target_position[0],2)+pow(current_position[1]-target_position[1],2));
         if(distance > 0.5){
-            ROS_INFO("destination could not be reached");
+            ROS_INFO("Destinazione non ancora raggiunta");
             //scegliere cosa fare in questo caso 
         }
     }  
@@ -127,7 +167,7 @@ int main(int argc, char**argv) {
     while(ros::ok){
         //trovare un modo per verificare se il messaggio va pubblicato 
         if(message_published){
-            ROS_INFO("Publishing a new goal position");
+            ROS_INFO("Pubblicazione del nuovo goal");
             pub.publish(new_goal_msg); //PUÒ ESSERE FATTA DIRETTAMENTE NELLA CALLBACK?
             message_published=0;
         }
