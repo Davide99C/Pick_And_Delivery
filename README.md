@@ -11,7 +11,7 @@ Per l'avvio del programma è sufficiente aprire l'interfaccia web (connessa alla
   - planner
   - follower(static)
 
-Una volta avviati i nodi qui sopra riportati basterà avviare su tre terminali differenti il main (che inizierà la comunicazione tra interfaccia utente e il Robot), il nodo sender (che si metterà in ascolto dell'utente per l'invio delle coordinate) e il nodo move (che riceverà le coordinate dal sendere e settera il nuovo goal del Robot) 
+Una volta avviati i nodi qui sopra riportati basterà avviare su tre terminali differenti il Main (che inizierà la comunicazione tra interfaccia utente e il Robot), il nodo Sender (che si metterà in ascolto dell'utente per l'invio delle coordinate) e il nodo Move (che riceverà le coordinate dal Sender e setterà il nuovo goal del Robot) 
 Fatto questo non resta che utilizzare l'interfaccia utente e vedere tramite rviz il lavoro del Robot!
   
 // Progetto realizzato grazie all'ambiente ROS e l'utilizzo della libreria libwebsocket.
