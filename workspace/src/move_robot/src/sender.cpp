@@ -52,17 +52,24 @@ int main(int argc, char**argv) {
         msg.x =(float) coordinate[0];
         msg.y = (float) coordinate[1];
         msg.theta = (float) coordinate[2];
-       // if (count<3) {
+
+        // CONTROLLO DELLA VALIDITÀ DELLE COORDINATE, SE VALIDE --> PUBBLICAZIONE DEL MESSAGGIO, ALTRIMENTO SI ATTENDE L'ARRIVO DI NUOVE COORDINATE
+
+        // if (count<3) {  <-- controllo per lo scaricamento
+        
         if (coordinate[0]>1 && coordinate[1]>1 ) {
             cout  << "COORDINATE: " << msg.x << " " << msg.y << " " << msg.theta << endl; 
             cout << "PUBBLICAZIONE GOAL..." << endl;
-            for (i=0;i<2;i++) { //pubblico due volte visto che il primo non lo legge poichè il nodo move dorme 2sec
+            for (i=0;i<2;i++) { //pubblico due volte il messaggio
                 pub.publish(msg); 
                 sleep(5); //siamo sicuri che il nodo move è in ascolto
             }
             //count++;
         }
         //}
+
+        //CONTROLLO PER LO SCARICAMENTO, COMMENTATO POICHÈ EFFETTUATO NEL NODO MOVE
+
         // else if (count==3) {
         //     //sleep(3);
         //     msg.x = 51.52;
@@ -77,6 +84,8 @@ int main(int argc, char**argv) {
         //     }
         //     count=0;
         //}
+
+
         ros::spinOnce();
         sleep(5);
 

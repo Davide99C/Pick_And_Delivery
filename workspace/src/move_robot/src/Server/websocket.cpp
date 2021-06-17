@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////
 #define MYFIFO "my_fifo" 
 
-int count=0; //per verificare che il robot sia scarico
+int count=0; // Variabile globale per la verifica dello scaricamento del Robot 
 
 using namespace std;
 
@@ -73,13 +73,15 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
 
       //VERIFICO SE LA STRINGA È RELATIVA AL BOTTONE "CHIAMA ROBOT" O MENO
       if (len>13) {
+        // stringa = chiamata:stanzarobot. --> split della stringa: 
+
         std::string s = (string)buf;
-        std::string token = s.substr(0, s.find(":")); // token is "chiamata"
-        std::string token2 = s.substr(9, s.find(".")); // token2 is stanza
+        std::string token = s.substr(0, s.find(":")); // token is "chiamata"         <--
+        std::string token2 = s.substr(9, s.find(".")); // token2 is stanza           <-- più efficace rispetto a strtok
         size = token2.length();
         strcpy(buf, token2.c_str());
-        // char* token = strtok(buf,":"); // token is "chiamata"
-        // char* token2 = strtok(NULL,":"); // token2 is stanza
+        // char* token = strtok(buf,":"); // token is "chiamata"                     <--
+        // char* token2 = strtok(NULL,":"); // token2 is stanza                      <-- meno efficace rispetto a substr
         // size = strlen(token2);
         // strcpy(buf, token2);
         buf[size-1] = '\0';
@@ -101,7 +103,7 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
         return EXIT_FAILURE;
       }
       //prendo le coordinate da inviare al robot
-      coordinate=getStanza((string)buf); //stanza movimento robot
+      coordinate=getStanza((string)buf); 
 
       cout << "INVIO COORDINATE AL ROBOT: " << coordinate[0] << " "
       << coordinate[1] << " " << coordinate[2] << " " << endl;
@@ -111,7 +113,8 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
           return EXIT_FAILURE;
         }
       }
-      count++;
+      count++; 
+      // Controllo scaricamento del Robot (utile solo al fine di modificare l'interfaccia utente, non incide sul movimento del Robot)
       if (count==3) {
         string s = "scarico";
         char *scarico = (char*) malloc((sizeof(char)*8));
@@ -125,8 +128,6 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
     
       close(fd);
         
-      
-      //free(buf);
 
     }
     break;
@@ -169,7 +170,7 @@ int webServerCreate(){
       .rx_buffer_size=0
     },
     {
-      .name = "web-protocol", // protocol name - very important!
+      .name = "web-protocol", // protocol name - molto importante!
       .callback = callback_dumb_increment,   // callback
       .per_session_data_size=0,                          // we don't use any per session data
       .rx_buffer_size=0

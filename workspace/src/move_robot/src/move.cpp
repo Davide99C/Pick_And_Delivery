@@ -33,9 +33,10 @@ int T = 2;
 
 
 void setGoal_CallBack( const move_robot::NewGoal& new_goal) {
+
     //SETTO I CAMPI DEL MESSAGGIO geometry_msgs::PoseStamped
 
-    if (scarico==3){
+    if (scarico==3){  // <-- controllo scaricamento del robot 
         new_goal_msg.header.seq = n;
         n++;
 
@@ -63,7 +64,7 @@ void setGoal_CallBack( const move_robot::NewGoal& new_goal) {
         ROS_INFO("ROBOT SCARICO");
     }
 
-    else if (cruising==0) {
+    else if (cruising==0) {  // <-- gestione della concorrenza (controllo che le coordinate vengano lette solo se il robot è fermo)
         new_goal_msg.header.seq = n;
         n++;
 
@@ -93,13 +94,14 @@ void setGoal_CallBack( const move_robot::NewGoal& new_goal) {
 }
 
 void position_CallBack( const tf2_msgs::TFMessage& tf) {
-    int trasform_ok;
-    //CHECK PER VERIFICARE SE LA TRASFORMATA ESISTE
-    trasform_ok = tfBuffer.canTransform("map", "base_link", ros::Time(0));
 
+    //CHECK PER VERIFICARE SE LA TRASFORMATA ESISTE
+    int trasform_ok;
+    trasform_ok = tfBuffer.canTransform("map", "base_link", ros::Time(0));
     if (trasform_ok!=0) {
-        geometry_msgs::TransformStamped transformStamped;
+
         //MI PRENDO LA TRASFORMATA DA MAP A BASE_LINK CHE MI DA LA POSIZIONE DEL ROBOT
+        geometry_msgs::TransformStamped transformStamped;
         transformStamped = tfBuffer.lookupTransform("map", "base_link", ros::Time(0));
 
         //POSA CORRENTE
@@ -120,15 +122,16 @@ void check1_callBack(const ros::TimerEvent& event){
         distance = sqrt(pow(current_position[0]-target_position[0],2)+pow(current_position[1]-target_position[1],2));
         if(distance < 1.5){
             //ROBOT ARRIVATO A DESTINAZIONE
+            //verifico se il Robot ha ricevuto il pacco o l'ha consegnato 
             if (consegnato == 0) {
                 ROS_INFO("DESTINAZIONE RAGGIUNTA");
-                cruising=0;
-                if (scarico!=0) consegnato++;
+                cruising = 0;
+                if (scarico != 0) consegnato++;
             }
             else {
                 ROS_INFO("CONSEGNA EFFETTUATA");
                 consegnato = 0;
-                cruising=0;
+                cruising = 0;
             }
         }
     }
@@ -141,7 +144,8 @@ void check2_callBack(const ros::TimerEvent& event){
         distance = sqrt(pow(current_position[0]-target_position[0],2)+pow(current_position[1]-target_position[1],2));
         if(distance > 0.5){
             ROS_INFO("Destinazione non ancora raggiunta");
-            //scegliere cosa fare in questo caso 
+            //Due probabilità : -) Robot ancora in transito --> attendere (ipotesi più probabile)
+            //                  -) Robot incastrato o coordinate invalide (poco probabile per la gestione di queste nel sender) --> problema non ancora gestito --> riavvio programma
         }
     }  
 }
