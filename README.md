@@ -10,6 +10,7 @@ Per l'avvio del programma è sufficiente aprire l'interfaccia web (connessa alla
   - localize (localizzando manualmente la posizione del robot su rviz basandosi sulla posizione del Robot in stage)
   - planner
   - follower(static)
+
 Una volta avviati i nodi qui sopra riportati basterà avviare su tre terminali differenti il main (che inizierà la comunicazione tra interfaccia utente e il Robot), il nodo sender (che si metterà in ascolto dell'utente per l'invio delle coordinate) e il nodo move (che riceverà le coordinate dal sendere e settera il nuovo goal del Robot) 
 Fatto questo non resta che utilizzare l'interfaccia utente e vedere tramite rviz il lavoro del Robot!
   
