@@ -112,7 +112,7 @@ function validaStanza2() {
 function richiamaRobot() {
     attesaRobot();
     var stanza_log = document.getElementById("stanza-log").innerHTML;
-    sendPacket("chiamata:"+stanza_log+".");
+    sendPacket(stanza_log+":"+"chiamata.");
 }
 
 function attesaRobot() {

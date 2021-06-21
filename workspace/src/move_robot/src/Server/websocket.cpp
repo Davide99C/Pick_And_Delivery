@@ -73,19 +73,17 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
 
       //VERIFICO SE LA STRINGA È RELATIVA AL BOTTONE "CHIAMA ROBOT" O MENO
       if (len>13) {
-        // stringa = chiamata:stanzarobot. --> split della stringa: 
-
+        // stringa = chiamata:stanzarobot. --> split della stringa:
         std::string s = (string)buf;
-        std::string token = s.substr(0, s.find(":")); // token is "chiamata"         <--
-        std::string token2 = s.substr(9, s.find(".")); // token2 is stanza           <-- più efficace rispetto a strtok
-        size = token2.length();
-        strcpy(buf, token2.c_str());
+        std::string token = s.substr(0, s.find(":")); // token is stanza             <-- più efficace rispetto a strtok
+        size = token.length();
+        strcpy(buf, token.c_str());
         // char* token = strtok(buf,":"); // token is "chiamata"                     <--
         // char* token2 = strtok(NULL,":"); // token2 is stanza                      <-- meno efficace rispetto a substr
         // size = strlen(token2);
         // strcpy(buf, token2);
-        buf[size-1] = '\0';
-        cout << token << " --> " << buf << endl;
+        buf[size] = '\0';
+        cout << "chiamata" << " --> " << buf << endl;
         lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
       }
       else {

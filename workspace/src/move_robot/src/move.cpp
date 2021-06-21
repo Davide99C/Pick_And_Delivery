@@ -27,7 +27,7 @@ tf2_ros::Buffer tfBuffer;
 size_t n = 10;
 int message_published = 0;
 int cruising = 0;
-int scarico;
+int scarico = 0;
 int consegnato = 0;
 int T = 2;
 
