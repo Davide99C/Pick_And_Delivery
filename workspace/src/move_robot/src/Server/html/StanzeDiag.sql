@@ -31,7 +31,8 @@ CREATE TABLE `Stanze` (
   `nome` varchar(100) NOT NULL,
   `x` float NOT NULL,
   `y` float NOT NULL,
-  `theta` float NOT NULL
+  `theta` float NOT NULL,
+  'log' int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -39,14 +40,14 @@ CREATE TABLE `Stanze` (
 --
 
 INSERT INTO `Stanze` (`nome`, `x`, `y`, `theta`) VALUES
-('area fumatori', 15.47, 9.75, 0.02),
-('bagno', 87.58, 9.72, 0.02),
-('sala biliardo', 28.33, 8.96, 0.02),
-('sala cinema', 32.83, 9.53, 0.02),
-('sala da ballo', 99.89, 19.18, 0.02),
-('sala giochi', 10.83, 10.18, 0.02),
-('sala studio', 4.69, 21.81, 0.02),
-('terrazza', 91.9, 9.72, 0.02);
+('area fumatori', 15.47, 9.75, 0.02, 0),
+('bagno', 87.58, 9.72, 0.02, 0),
+('sala biliardo', 28.33, 8.96, 0.02, 0),
+('sala cinema', 32.83, 9.53, 0.02, 0),
+('sala da ballo', 99.89, 19.18, 0.02, 0),
+('sala giochi', 10.83, 10.18, 0.02, 0),
+('sala studio', 4.69, 21.81, 0.02, 0),
+('terrazza', 91.9, 9.72, 0.02, 0);
 
 --
 -- Indexes for dumped tables

@@ -1,0 +1,35 @@
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target _move_robot_generate_messages_check_deps_NewGoal
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_eus
+[  9%] Built target move_robot_generate_messages_nodejs
+[ 27%] Built target move_robot_generate_messages_py
+[ 36%] Built target move_robot_generate_messages_cpp
+[ 45%] Built target move_robot_generate_messages_lisp
+[35m[1mScanning dependencies of target move[0m
+[ 63%] Built target move_robot_generate_messages_eus
+[ 81%] Built target sender
+[ 90%] [32mBuilding CXX object CMakeFiles/move.dir/src/move.cpp.o[0m
+[ 90%] Built target move_robot_generate_messages
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:[m[K In function ‘[01m[Kvoid check1_callBack(const ros::TimerEvent&)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:146:43:[m[K [01;31m[Kerror: [m[Kinvalid conversion from ‘[01m[Kint[m[K’ to ‘[01m[Kconst void*[m[K’ [[01;31m[K-fpermissive[m[K]
+                 if(write(fd2,1,sizeof(int)[01;31m[K)[m[K==-1) {
+                                           [01;31m[K^[m[K
+In file included from [01m[K/usr/include/boost/config/stdlib/libstdcpp3.hpp:78:0[m[K,
+                 from [01m[K/usr/include/boost/config.hpp:48[m[K,
+                 from [01m[K/usr/include/boost/math/tools/config.hpp:13[m[K,
+                 from [01m[K/usr/include/boost/math/special_functions/round.hpp:13[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/time.h:58[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:1[m[K:
+[01m[K/usr/include/unistd.h:369:16:[m[K [01;36m[Knote: [m[K  initializing argument 2 of ‘[01m[Kssize_t write(int, const void*, size_t)[m[K’
+ extern ssize_t [01;36m[Kwrite[m[K (int __fd, const void *__buf, size_t __n) __wur;
+                [01;36m[K^~~~~[m[K
+CMakeFiles/move.dir/build.make:62: recipe for target 'CMakeFiles/move.dir/src/move.cpp.o' failed
+make[2]: *** [CMakeFiles/move.dir/src/move.cpp.o] Error 1
+CMakeFiles/Makefile2:327: recipe for target 'CMakeFiles/move.dir/all' failed
+make[1]: *** [CMakeFiles/move.dir/all] Error 2
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2

@@ -17,8 +17,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////
 #define MYFIFO "my_fifo" 
+#define MYFIFO2 "my_fifo2"
 
 int count=0; // Variabile globale per la verifica dello scaricamento del Robot 
+int loggato = 0;
+int N = 0;
 
 using namespace std;
 
@@ -89,29 +92,70 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
       else {
         buf[len] = '\0';
         size = strlen(buf);
-        lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
       }
 
       //COMUNICAZIONE TRAMITE NAMED PIPE PER LO SCAMBIO DEL MESSAGGIO (INVIO COORDINATE AL ROBOT)
       int i;
       int fd = open(MYFIFO,O_WRONLY);
-
       if (!fd) {
         cerr << "Errore apertura in scrittura della fifo" << endl;
         return EXIT_FAILURE;
       }
-      //prendo le coordinate da inviare al robot
-      coordinate=getStanza((string)buf); 
 
-      cout << "INVIO COORDINATE AL ROBOT: " << coordinate[0] << " "
-      << coordinate[1] << " " << coordinate[2] << " " << endl;
-      for (i=0;i<3;i++) {
-        if(write(fd,&coordinate[i],sizeof(float))==-1) {
-          cerr << "Errore di scrittura nella fifo" << endl;
-          return EXIT_FAILURE;
+      //prendo le coordinate da inviare al robot
+      if (loggato<N) {
+        stanzaLog((string)buf); 
+        lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
+        loggato++;
+      }
+      else {
+        coordinate = getStanza((string)buf);
+        if (coordinate[3]==1) {
+          cout << "INVIO COORDINATE AL ROBOT: " << coordinate[0] << " "
+          << coordinate[1] << " " << coordinate[2] << " " << endl;
+          for (i=0;i<3;i++) {
+            if(write(fd,&coordinate[i],sizeof(float))==-1) {
+              cerr << "Errore di scrittura nella fifo" << endl;
+              return EXIT_FAILURE;
+            }
+          }
+          lws_write(wsi, (unsigned char*) buf, size, LWS_WRITE_TEXT);
+          count++; 
+        }
+        else {
+          string h = "help";
+          char *help = (char*) malloc((sizeof(char)*11));
+          strcpy(help, h.c_str());
+          size = strlen(help);
+          help[size] = '\0';
+          size = strlen(help);
+          lws_write(wsi, (unsigned char*) help, size, LWS_WRITE_TEXT);
         }
       }
-      count++; 
+
+      // Cotrollo consegna effettuata
+      if (count==2) {
+        int* consegna = (int*)malloc(sizeof(int));
+        int fd2 = open(MYFIFO2,O_RDONLY);
+        if (!fd2) {
+          cerr << "Errore apertura in lettura della fifo" << endl;
+          return EXIT_FAILURE;
+        }
+        if(read(fd2,&consegna[0], sizeof(int))==-1) {
+            cerr << "Errore di lettura nella fifo" << endl;
+            return EXIT_FAILURE;
+        }
+        close(fd2);
+        if (consegna[0]==1) {
+          string c = "consegnato";
+          char *consegnato = (char*) malloc((sizeof(char)*11));
+          strcpy(consegnato, c.c_str());
+          size = strlen(consegnato);
+          consegnato[size] = '\0';
+          size = strlen(consegnato);
+          lws_write(wsi, (unsigned char*) consegnato, size, LWS_WRITE_TEXT);
+        }
+      }
       // Controllo scaricamento del Robot (utile solo al fine di modificare l'interfaccia utente, non incide sul movimento del Robot)
       if (count==3) {
         string s = "scarico";
@@ -140,12 +184,16 @@ static int callback_dumb_increment( //struct libwebsocket_context * this_context
 
 
 
-int webServerCreate(){
+int webServerCreate(int n){
+  N=n;
   int port = 9002;
   int opts = 0;
   const char *interface = NULL;
   struct lws_context *context;
   struct lws_context_creation_info info;
+
+  //INIZIALIZZO STANZE VUOTE
+  resetLog();
 
   //CREZIONE FIFO
   int res;
@@ -154,7 +202,6 @@ int webServerCreate(){
   if (res==-1) {
     cerr << "Errore creazione fifo" << endl;
     return EXIT_FAILURE;
-
   }
 
   memset(&info, 0, sizeof info);

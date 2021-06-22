@@ -9,6 +9,8 @@ ws.onmessage = function(event) {
    var risposta = event.data;
    if (document.getElementById("consegna").style.display=="block") {
         if (risposta=="scarico") return caricaRobot();
+        else if (risposta=="consegnato") return consegnato();
+        else if (risposta=="help") return help();
         else document.getElementById("transito").innerHTML = '<h3> Il Robot è in transito verso la stanza: '+risposta+'</h3>';
    }
    else {
@@ -129,4 +131,12 @@ function caricaRobot() {
     setTimeout(() => {
         document.getElementById("azione-robot").innerHTML = "<button type='button' onclick='richiamaRobot()'> Chiama il ROBOT </button><span id='attesa' ><h3> Immetti il pacco sul ROBOT e seleziona la destinazione del pacco da spedire:</h3></span>";
      },25000);
+}
+
+function consegnato() {
+    document.getElementById("transito").innerHTML = '<h3> Pacco ricevuto! </h3>';
+}
+
+function help() {
+    document.getElementById("transito").innerHTML = '<h3> Nessuna persona è presente nella stanza indicata </h3>';
 }

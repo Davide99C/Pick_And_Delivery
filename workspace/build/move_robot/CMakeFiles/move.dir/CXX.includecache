@@ -45,6 +45,16 @@ sstream
 -
 vector
 -
+sys/stat.h
+-
+sys/types.h
+-
+fcntl.h
+-
+unistd.h
+-
+stdio.h
+-
 geometry_msgs/PoseStamped.h
 -
 move_robot/NewGoal.h

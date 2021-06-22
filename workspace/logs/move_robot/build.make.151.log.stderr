@@ -1,0 +1,16 @@
+In file included from [01m[K/usr/include/c++/7/cstdlib:75:0[m[K,
+                 from [01m[K/usr/include/c++/7/stdlib.h:36[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/platform.h:37[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/time.h:53[m[K,
+                 from [01m[K/opt/ros/melodic/include/ros/ros.h:38[m[K,
+                 from [01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:1[m[K:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:[m[K In function ‘[01m[Kvoid check1_callBack(const ros::TimerEvent&)[m[K’:
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:142:28:[m[K [01;31m[Kerror: [m[Kreturn-statement with a value, in function returning 'void' [[01;31m[K-fpermissive[m[K]
+                     return [01;31m[KE[m[KXIT_FAILURE;
+                            [01;31m[K^[m[K
+[01m[K/home/davide/Desktop/Pick_And_Delivery/Pick_And_Delivery/workspace/src/move_robot/src/move.cpp:146:28:[m[K [01;31m[Kerror: [m[Kreturn-statement with a value, in function returning 'void' [[01;31m[K-fpermissive[m[K]
+                     return [01;31m[KE[m[KXIT_FAILURE;
+                            [01;31m[K^[m[K
+make[2]: *** [CMakeFiles/move.dir/src/move.cpp.o] Error 1
+make[1]: *** [CMakeFiles/move.dir/all] Error 2
+make: *** [all] Error 2

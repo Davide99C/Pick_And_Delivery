@@ -9,9 +9,16 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <move_robot/NewGoal.h>
 
+#define MYFIFO2 "Server/my_fifo2"
+int fd2;
 
 using namespace std;
 using namespace ros;
@@ -126,10 +133,22 @@ void check1_callBack(const ros::TimerEvent& event){
             if (consegnato == 0) {
                 ROS_INFO("DESTINAZIONE RAGGIUNTA");
                 cruising = 0;
-                if (scarico != 0) consegnato++;
+                if (scarico != 0) consegnato=1;
             }
             else {
                 ROS_INFO("CONSEGNA EFFETTUATA");
+                int* consegna = (int*)malloc(sizeof(int));
+                consegna[0]=consegnato;
+                fd2 = open(MYFIFO2,O_WRONLY);
+                if (!fd2) {
+                    cerr << "Errore apertura in scrittura della fifo" << endl;
+                    //return (void)EXIT_FAILURE;
+                }
+                if(write(fd2,&consegnato,sizeof(int))==-1) {
+                    cerr << "Errore di scrittura nella fifo" << endl;
+                    //return (void)EXIT_FAILURE;
+                }
+                close(fd2);
                 consegnato = 0;
                 cruising = 0;
             }
@@ -151,6 +170,14 @@ void check2_callBack(const ros::TimerEvent& event){
 }
 
 int main(int argc, char**argv) {
+
+    int res;
+    unlink(MYFIFO2);
+    res = mkfifo(MYFIFO2,0666);
+    if (res==-1) {
+        cerr << "Errore creazione fifo" << endl;
+        return EXIT_FAILURE;
+    }
 
     ros::init(argc,argv,"move");
     ros::NodeHandle n;

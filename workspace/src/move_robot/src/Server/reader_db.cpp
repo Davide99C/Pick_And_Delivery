@@ -78,14 +78,54 @@ void insertDB(string stanza, string x, string y, string theta) {
     }
 }
 
-//PRENDO LE COORDINATE DELLA STANZA SCELTA DALL'UTENTE
+//INIZIALIZZO TUTTE LE STANZE A "VUOTE"
+void resetLog() {
+	
+	if (!connection()) {
+		exit(EXIT_FAILURE);
+	}
+
+	const char* query = (char*)malloc(sizeof(char*));
+	string aux = "UPDATE Stanze SET log=0";
+	query = aux.c_str();
+	if (mysql_query(con, (const char*) query)) {
+      //finish_with_error(con);
+      fprintf(stderr, "mysql_query() failed\n");
+      exit(EXIT_FAILURE);
+	}
+	
+	mysql_close(con);
+
+}
+
+//PRENDO LE COORDINATE DELLA STANZA SCELTA DALL'UTENTE PER LOGGARSI
+void stanzaLog(string buf) {
+	
+	if (!connection()) {
+		exit(EXIT_FAILURE);
+	}
+
+	const char* query = (char*)malloc(sizeof(char*));
+	string aux = "UPDATE Stanze SET log=1 WHERE nome='"+buf+"'";
+	query = aux.c_str();
+	if (mysql_query(con, (const char*) query)) {
+      //finish_with_error(con);
+      fprintf(stderr, "mysql_query() failed\n");
+      exit(EXIT_FAILURE);
+	}
+	
+	mysql_close(con);
+
+}
+
+//PRENDO LE COORDINATE DELLA STANZA SCELTA DALL'UTENTE PER SPEDIRE IL PACCO
 float* getStanza(string buf) {
 	
 	if (!connection()) {
 		exit(EXIT_FAILURE);
 	}
 	
-	float* coordinate = (float*)malloc(sizeof(float*)*3);
+	float* coordinate = (float*)malloc(sizeof(float*)*4);
 
 	const char* query = (char*)malloc(sizeof(char*));
 	string aux = "SELECT * FROM Stanze WHERE nome='"+buf+"'";
@@ -112,6 +152,7 @@ float* getStanza(string buf) {
 			coordinate[0]=atof(row[1]);
 			coordinate[1]=atof(row[2]);
 			coordinate[2]=atof(row[3]);
+			coordinate[3]=atof(row[4]);
 			printf("\n");
 	}
 	mysql_free_result(result);
@@ -120,6 +161,7 @@ float* getStanza(string buf) {
 	return coordinate;
 
 }
+
 
 //////////////////////////////////////////////////
 //PROVA CON I DRIVER CONNECTOR/C++
