@@ -1,5 +1,6 @@
-# Titolo: Pick_And_Delivery
-# Progetto LABIAGI
+# Titolo: Smart Sensing and delivery robot
+# Laboratorio di intelligenza artificiale e grafica interattiva
+# Progetto LABIAGI 2021
 # Descrizione:
 Il progetto riguarda la gestione di un Robot che sia in grado di ricevere pacchi da utenti e consegnarli ad altri.
 Per l'avvio del programma è sufficiente aprire l'interfaccia web (connessa alla porta 9002 del localhost) tramite il file html specifico e aprire un'altra interfaccia per la gestione dell'ambiente ROS (alla porta 9001 del localhost) dalla quale avviare:
